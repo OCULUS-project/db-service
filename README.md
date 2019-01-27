@@ -46,11 +46,11 @@ __url:__ `../db/jobs/new/all`, __method:__ `GET`
 | no rules in db | `[]` | 204 No Content |
 
 #### add new job
-__url:__ `../db/jobs/add`, __method:__ `POST`, __body:__ json of `Job`
+__url:__ `../db/jobs/add`, __method:__ `POST`, __body:__ json of `Job` (without `id`, `created` and `updated`)
 
 | case | response | code |
 |---|---|---|
-| success | `location` header with relative url to get added job| 200 OK |
+| success | `location` header with added job id | 200 OK |
 | fail | _error json_ | 400 Bad request |
 
 
@@ -84,6 +84,14 @@ __url:__ `../db/jobs/update/status`, __method:__ `PUT`, __body:__
 
 ### rules
 
+#### get rule by id
+__url:__ `../db/rules/get?id=ID_OF_RULE`, __method:__ `GET`
+
+| case | response | code |
+|---|---|---|
+| success | json of `Rule` | 200 OK |
+| fail | _empty_ | 204 No Content |
+
 #### get all rules
 __url:__ `../db/rules/all`, __method:__ `GET`
 
@@ -91,3 +99,12 @@ __url:__ `../db/rules/all`, __method:__ `GET`
 |---|---|---|
 | found rules | json array of `Rule` | 200 OK |
 | no rules in db | `[]` | 204 No Content |
+
+#### add new rule
+__url:__ `../db/rules/add`, __method:__ `POST`, __body:__ json of `Rule`
+
+| case | response | code |
+|---|---|---|
+| success | `location` header with added rule id| 200 OK |
+| fail | _error json_ | 400 Bad request |
+

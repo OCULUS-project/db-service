@@ -47,5 +47,12 @@ class DbService (
     }
 
     // rules
+    fun getRuleById(id: String): Optional<Rule> = rulesRepository.findById(id)
     fun getAllRules(): List<Rule> = rulesRepository.findAll()
+
+    fun addRule(rule: Rule): Rule {
+        val added = rulesRepository.insert(rule)
+        logger.info("Added new Rule with id ${added.id}")
+        return added
+    }
 }

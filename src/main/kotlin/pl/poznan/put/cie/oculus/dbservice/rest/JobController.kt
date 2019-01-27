@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.ResponseBody
 import org.springframework.web.bind.annotation.RestController
 import pl.poznan.put.cie.oculus.dbentries.jobs.Job
 import pl.poznan.put.cie.oculus.dbservice.app.DbService
+import pl.poznan.put.cie.oculus.dbservice.rest.request.AddJobRequest
 import pl.poznan.put.cie.oculus.dbservice.rest.request.UpdateConclusionsRequest
 import pl.poznan.put.cie.oculus.dbservice.rest.request.UpdateStatusRequest
 import java.net.URI
@@ -57,9 +58,10 @@ class JobController (
 
     @PostMapping("/add")
     @ResponseBody
-    fun addJob (@RequestBody job: Job): ResponseEntity<Void> {
-        val added = dbService.addJob(job)
-        return ResponseEntity.created(URI("/db/jobs/get?id=${added.id}")).body(null)
+    fun addJob (@RequestBody jobRequest: AddJobRequest): ResponseEntity<Void> {
+        val jobToAdd = Job(jobRequest.status, jobRequest.owner, jobRequest.patient, jobRequest.facts, jobRequest.conclusions)
+        val added = dbService.addJob(jobToAdd)
+        return ResponseEntity.created(URI(added.id)).body(null)
     }
 
     @PutMapping("/update/conclusions")
