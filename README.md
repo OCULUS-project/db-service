@@ -1,5 +1,5 @@
-#db-service
-Facade of the database storing jobs and rules. Allows basic CRUD operations. Should be used always, when accessing jobs database.
+# db-service
+Facade over the database storing jobs and rules. Allows basic CRUD operations. Should be used always, when accessing jobs database.
 
 Data types used here are stored in _db-entries_ repository.
 
@@ -12,6 +12,15 @@ This sections demonstrates endpoints and requests.
 > Data types used here are stored in _db-entries_ repository.
 
 ### jobs
+
+#### get job by id
+__url:__ `../db/jobs/get?id=ID_OF_JOB`, __method:__ `GET`
+
+| case | response | code |
+|---|---|---|
+| success | json of `Job` | 200 OK |
+| fail | _empty_ | 204 No Content |
+
 #### get all jobs
 __url:__ `../db/jobs/all`, __method:__ `GET`
 
@@ -28,7 +37,7 @@ __url:__ `../db/jobs/new/first`, __method:__ `GET`
 | found rules | json `Job` | 200 OK |
 | no rules in db | _empty_ | 204 No Content |
 
-#### get first all new jobs
+#### get all new jobs
 __url:__ `../db/jobs/new/all`, __method:__ `GET`
 
 | case | response | code |
@@ -36,13 +45,14 @@ __url:__ `../db/jobs/new/all`, __method:__ `GET`
 | found rules | json array of `Job` | 200 OK |
 | no rules in db | `[]` | 204 No Content |
 
-#### update job _in dev_
-__url:__ `../db/jobs/update/job`, __method:__ `PUT`, __body:__ json of `Job`
+#### add new job
+__url:__ `../db/jobs/add`, __method:__ `POST`, __body:__ json of `Job`
 
 | case | response | code |
 |---|---|---|
-| success | _empty_ | 200 OK |
-| fail | _error json_ | 500 Internal Server Error |
+| success | `location` header with relative url to get added job| 200 OK |
+| fail | _error json_ | 400 Bad request |
+
 
 #### update conclusions of job
 __url:__ `../db/jobs/update/conclusions`, __method:__ `PUT`, __body:__
